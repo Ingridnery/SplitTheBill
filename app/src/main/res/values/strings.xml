@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SplitTheBill</string>
+    <string name="name">Name</string>
+    <string name="value">Value</string>
+    <string name="items">Items</string>
+    <string name="save">Save</string>
+    <string name="delete_person">Delete Person</string>
+    <string name="edit_person">Edit Person</string>
 </resources>
