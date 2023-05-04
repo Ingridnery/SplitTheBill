@@ -31,7 +31,7 @@ class PersonActivity:  AppCompatActivity()  {
             with(acb){
                 with(_receivedPerson){
                     nameEt.setText(name)
-                    valueEt.setText(value)
+                    valueEt.setText(value.toString())
                     itemsEt.setText(items)
 
                 }
@@ -46,7 +46,7 @@ class PersonActivity:  AppCompatActivity()  {
         }
         acb.saveBt.setOnClickListener(){
             val person: Person = Person(receivedPerson?.id, acb.nameEt.text.toString(),
-                acb.valueEt.text.toString(), acb.itemsEt.text.toString())
+                acb.valueEt.text.toString().toDouble(), acb.itemsEt.text.toString())
 
             val resultIntent = Intent()
             resultIntent.putExtra("Person", person)

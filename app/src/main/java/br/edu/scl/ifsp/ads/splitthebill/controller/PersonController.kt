@@ -5,7 +5,6 @@ import br.edu.scl.ifsp.ads.splitthebill.model.Person
 import br.edu.scl.ifsp.ads.splitthebill.model.PersonDao
 import br.edu.scl.ifsp.ads.splitthebill.model.PersonDaoRoom
 import br.edu.scl.ifsp.ads.splitthebill.view.MainActivity
-import java.util.concurrent.CountDownLatch
 
 class PersonController(private val mainActivity: MainActivity) {
     private val personDao: PersonDao = Room.databaseBuilder(mainActivity, PersonDaoRoom::class.java, PersonDaoRoom.PERSON_DATABASE_FILE).build().getPersonDao()

@@ -12,6 +12,6 @@ data class Person (
 
     @PrimaryKey(autoGenerate = true) val id: Int?,
     @NonNull var name: String,
-    @NonNull var value: String,
+    @NonNull var value: Double,
     var items: String,
 ): Parcelable
