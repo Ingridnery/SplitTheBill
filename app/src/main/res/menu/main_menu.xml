@@ -6,7 +6,13 @@
         android:id="@+id/addPersonMi"
         android:orderInCategory="100"
         android:icon="@drawable/ic_add"
-        android:title="Add Person"
+        android:title="@string/add_person"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/calculateValueMi"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_money"
+        android:title="@string/calculate_value"
         app:showAsAction="ifRoom" />
 
 </menu>

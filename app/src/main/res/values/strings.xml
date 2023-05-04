@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">SplitTheBill</string>
-    <string name="name">Name</string>
-    <string name="value">Value</string>
-    <string name="items">Items</string>
-    <string name="save">Save</string>
-    <string name="delete_person">Delete Person</string>
-    <string name="edit_person">Edit Person</string>
+    <string name="name">Nome</string>
+    <string name="value">Valor</string>
+    <string name="items">Itens</string>
+    <string name="save">Salvar</string>
+    <string name="delete_person">Remover</string>
+    <string name="edit_person">Editar</string>
+    <string name="add_person">Add Pessoa</string>
+    <string name="calculate_value">Calcular Valor</string>
+    <string name="value_text"> Deve receber R$ %d</string>
+
+
 </resources>

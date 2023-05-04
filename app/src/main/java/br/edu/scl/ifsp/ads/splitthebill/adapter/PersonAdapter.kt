@@ -8,7 +8,7 @@ import br.edu.scl.ifsp.ads.splitthebill.R
 import br.edu.scl.ifsp.ads.splitthebill.databinding.DetailContactBinding
 import br.edu.scl.ifsp.ads.splitthebill.model.Person
 
-class PersonAdapter(context: Context, private val personList:MutableList<Person>):
+class PersonAdapter(context: Context, private val personList:MutableList<Person>, private val caller: String):
         ArrayAdapter<Person>(context, R.layout.detail_contact, personList) {
         private lateinit var dcb: DetailContactBinding
         override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
@@ -29,7 +29,23 @@ class PersonAdapter(context: Context, private val personList:MutableList<Person>
                 }
                 with(detailContactView.tag as DetailContactViewHolder){
                         nameTv.text = person.name
-                        valueTv.text = person.value.toString()
+
+                        if(caller == "ValueActivity"){
+                               if(person.value <0){
+                                   val value = kotlin.math.abs(person.value)
+                                   val formattedValue = String.format("%.2f", value)
+                                   valueTv.text = "Deve receber R$ $formattedValue"
+
+                               }
+                               else{
+                                   valueTv.text = String.format("Deve pagar R$ %.2f", person.value)
+
+                               }
+                               //valueTv.text = person.value.toString()
+                       }
+                        else{
+                                valueTv.text = person.value.toString()
+                        }
                 }
                 return detailContactView
         }

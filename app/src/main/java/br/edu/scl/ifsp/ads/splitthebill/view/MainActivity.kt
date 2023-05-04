@@ -1,8 +1,6 @@
 package br.edu.scl.ifsp.ads.splitthebill.view
 
-import android.app.Instrumentation
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
     private val personList : MutableList<Person> = mutableListOf()
     private val personAdapter: PersonAdapter by lazy {
-        PersonAdapter(this, personList)
+        PersonAdapter(this, personList,"MainActivity")
     }
     private val personController: PersonController by lazy {
         PersonController(this)
@@ -52,8 +50,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     else{
                         personController.insertPerson(_person)
-                        personController.getPersons()
                         Toast.makeText(this,"Person inserted!", Toast.LENGTH_SHORT).show()
+                        personAdapter.notifyDataSetChanged()
+                        personController.getPersons()
+
                     }
                     personAdapter.notifyDataSetChanged()
                 }
@@ -61,15 +61,13 @@ class MainActivity : AppCompatActivity() {
         }
         registerForContextMenu(amb.personsLv)
 
-        amb.personsLv.setOnItemClickListener(object : AdapterView.OnItemClickListener{
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val person = personList[position]
-                val personIntent = Intent(this@MainActivity, PersonActivity::class.java)
-                personIntent.putExtra("Person", person)
-                personIntent.putExtra("ViewPerson", true)
-                arl.launch(personIntent)
-            }
-        })
+        amb.personsLv.setOnItemClickListener { _, _, position, _ ->
+            val person = personList[position]
+            val personIntent = Intent(this@MainActivity, PersonActivity::class.java)
+            personIntent.putExtra("Person", person)
+            personIntent.putExtra("ViewPerson", true)
+            arl.launch(personIntent)
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean{
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -82,6 +80,11 @@ class MainActivity : AppCompatActivity() {
             R.id.addPersonMi -> {
                 val personIntent = Intent(this, PersonActivity::class.java)
                 arl.launch(personIntent)
+                true
+            }
+            R.id.calculateValueMi -> {
+                val calculateIntent = Intent(this, ValueActivity::class.java)
+                arl.launch(calculateIntent)
                 true
             }
             else -> false
