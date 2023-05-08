@@ -5,13 +5,17 @@ import br.edu.scl.ifsp.ads.splitthebill.model.Person
 import br.edu.scl.ifsp.ads.splitthebill.model.PersonDao
 import br.edu.scl.ifsp.ads.splitthebill.model.PersonDaoRoom
 import br.edu.scl.ifsp.ads.splitthebill.view.MainActivity
-
+interface OnPersonInsertedListener {
+    fun onPersonInserted()
+}
 class PersonController(private val mainActivity: MainActivity) {
     private val personDao: PersonDao = Room.databaseBuilder(mainActivity, PersonDaoRoom::class.java, PersonDaoRoom.PERSON_DATABASE_FILE).build().getPersonDao()
-    fun insertPerson(person: Person){
+    fun insertPerson(person: Person, listener: OnPersonInsertedListener){
         Thread{
-
             personDao.createPerson(person)
+            mainActivity.runOnUiThread {
+                listener.onPersonInserted()
+            }
         }.start()
     }
     fun getPersons(){
@@ -32,6 +36,11 @@ class PersonController(private val mainActivity: MainActivity) {
     fun removePerson(person: Person){
         Thread{
             personDao.deletePerson(person)
+        }.start()
+    }
+    fun removeAllPersons(){
+        Thread{
+            personDao.deleteAllPersons()
         }.start()
     }
 

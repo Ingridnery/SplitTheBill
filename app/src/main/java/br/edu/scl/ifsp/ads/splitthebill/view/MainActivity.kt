@@ -3,6 +3,7 @@ package br.edu.scl.ifsp.ads.splitthebill.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
@@ -11,8 +12,10 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import br.edu.scl.ifsp.ads.splitthebill.R
 import br.edu.scl.ifsp.ads.splitthebill.adapter.PersonAdapter
+import br.edu.scl.ifsp.ads.splitthebill.controller.OnPersonInsertedListener
 import br.edu.scl.ifsp.ads.splitthebill.controller.PersonController
 import br.edu.scl.ifsp.ads.splitthebill.databinding.ActivityMainBinding
 import br.edu.scl.ifsp.ads.splitthebill.model.Person
@@ -46,14 +49,14 @@ class MainActivity : AppCompatActivity() {
                     if(position != -1){
                         personList[position] = _person
                         personController.editPerson(_person)
-                        Toast.makeText(this,"Person updated!", Toast.LENGTH_SHORT).show()
                     }
                     else{
-                        personController.insertPerson(_person)
-                        Toast.makeText(this,"Person inserted!", Toast.LENGTH_SHORT).show()
-                        personAdapter.notifyDataSetChanged()
-                        personController.getPersons()
-
+                        personController.insertPerson(_person, object : OnPersonInsertedListener{
+                            override fun onPersonInserted() {
+                                personController.getPersons()
+                                personAdapter.notifyDataSetChanged()
+                            }
+                        })
                     }
                     personAdapter.notifyDataSetChanged()
                 }
@@ -85,6 +88,21 @@ class MainActivity : AppCompatActivity() {
             R.id.calculateValueMi -> {
                 val calculateIntent = Intent(this, ValueActivity::class.java)
                 arl.launch(calculateIntent)
+                true
+            }
+            R.id.removeAllPersonsMi -> {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Remover todos")
+                builder.setMessage("Deseja remover todos da lista?")
+                builder.setPositiveButton("Sim"){_, _ ->
+                    personList.clear()
+                    personController.removeAllPersons()
+                    personAdapter.notifyDataSetChanged()
+                    Toast.makeText(this,"Todos foram removidos!", Toast.LENGTH_SHORT).show()
+                }
+                builder.setNegativeButton("Não", null)
+                val dialog = builder.create()
+                dialog.show()
                 true
             }
             else -> false

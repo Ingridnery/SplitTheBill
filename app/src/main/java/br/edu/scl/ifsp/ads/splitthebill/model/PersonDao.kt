@@ -14,4 +14,6 @@ interface PersonDao {
     fun updatePerson(person: Person) :Int
     @Delete
     fun deletePerson(person: Person):Int
+    @Query("DELETE FROM Person")
+    fun deleteAllPersons()
 }

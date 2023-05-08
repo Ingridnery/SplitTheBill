@@ -9,6 +9,7 @@
     <string name="add_person">Add Pessoa</string>
     <string name="calculate_value">Calcular Valor</string>
     <string name="value_text"> Deve receber R$ %d</string>
+    <string name="delete_all">Deletar todos</string>
 
 
 </resources>

@@ -41,7 +41,6 @@ class PersonAdapter(context: Context, private val personList:MutableList<Person>
                                    valueTv.text = String.format("Deve pagar R$ %.2f", person.value)
 
                                }
-                               //valueTv.text = person.value.toString()
                        }
                         else{
                                 valueTv.text = person.value.toString()
