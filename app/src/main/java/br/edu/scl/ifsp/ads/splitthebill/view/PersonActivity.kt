@@ -46,7 +46,7 @@ class PersonActivity:  AppCompatActivity()  {
         }
         acb.saveBt.setOnClickListener(){
             val person: Person = Person(receivedPerson?.id, acb.nameEt.text.toString(),
-                acb.valueEt.text.toString().toDouble(), acb.itemsEt.text.toString())
+                acb.valueEt.text.toString().toDoubleOrNull() ?: 0.0, acb.itemsEt.text.toString())
 
             val resultIntent = Intent()
             resultIntent.putExtra("Person", person)
